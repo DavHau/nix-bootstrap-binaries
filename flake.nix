@@ -28,7 +28,6 @@
         cp -r ${bin} ./bin
         chmod +w -R ./bin
         git add ./bin
-        git checkout master
       '';
 
       bin = pkgs.runCommand "bin" {} ''
