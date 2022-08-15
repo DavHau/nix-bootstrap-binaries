@@ -1,0 +1,13 @@
+# See: man pkg-config
+prefix=/nix/store/nfhg0jn73y9rnkgzw0b6vba2m8qp98ki-python3-minimal-static-x86_64-unknown-linux-musl-3.10.5
+exec_prefix=${prefix}
+libdir=/nix/store/nfhg0jn73y9rnkgzw0b6vba2m8qp98ki-python3-minimal-static-x86_64-unknown-linux-musl-3.10.5/lib
+includedir=/nix/store/nfhg0jn73y9rnkgzw0b6vba2m8qp98ki-python3-minimal-static-x86_64-unknown-linux-musl-3.10.5/include
+
+Name: Python
+Description: Embed Python into an application
+Requires:
+Version: 3.10
+Libs.private: -ldl -lcrypt -lpthread -lm
+Libs: -L${libdir} -lpython3.10
+Cflags: -I${includedir}/python3.10

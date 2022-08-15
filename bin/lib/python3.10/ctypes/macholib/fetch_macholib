@@ -1,0 +1,2 @@
+#!/nix/store/djhsz3k1r39zjqqhkv6qzqiyzshf7qja-bash-5.1-p16-x86_64-unknown-linux-musl/bin/sh
+svn export --force http://svn.red-bean.com/bob/macholib/trunk/macholib/ .
