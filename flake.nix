@@ -21,21 +21,39 @@
 
     packages = forAllSystems (system: pkgs: rec {
 
-      bootstrap-micropython = pkgs.writeScriptBin "boostrap" ''
+      bootstrap-python = pkgs.writeScriptBin "boostrap-python" ''
         set -x
-        git checkout micropython
+        git checkout python
         rm -rf ./bin
-        cp -r ${bin} ./bin
+        cp -r ${bin-python} ./bin
         chmod +w -R ./bin
         git add ./bin
       '';
 
-      bin = pkgs.runCommand "bin" {} ''
+      bin-python = pkgs.runCommand "bin-python" {} ''
+        mkdir $out
+        cp ${python-static}/bin/python $out/
+        cp -r ${python-static}/lib $out/lib
+      '';
+
+
+      bootstrap-micropython = pkgs.writeScriptBin "boostrap-micropython" ''
+        set -x
+        git checkout micropython
+        rm -rf ./bin
+        cp -r ${bin-micropython} ./bin
+        chmod +w -R ./bin
+        git add ./bin
+      '';
+
+      bin-micropython = pkgs.runCommand "bin-micropython" {} ''
         mkdir $out
         cp ${micropython-standalone}/bin/* $out/
         cp -r ${micropython-stdlib}/lib $out/mpy-lib
         cp ${pkgs.pcre.out}/lib/libpcre.so $out/libpcre.so
       '';
+
+      python-static = pkgs.pkgsStatic.python3Minimal;
 
       micropython-stdlib = import ./micropython-stdlib.nix {
         inherit micropython-lib-src;
